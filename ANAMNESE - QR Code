@@ -27,7 +27,7 @@
     <div class="container mx-auto px-4 py-8">
         <!-- Header -->
         <div class="text-center mb-8">
-            <h1 class="text-4xl font-bold text-indigo-800 mb-2">🏥 Sistema Médico QR Code</h1>
+            <h1 class="text-4xl font-bold text-indigo-800 mb-2">🏥 Sistema de Identificação e Anamnese via QR-CODE</h1>
             <p class="text-gray-600">Gerenciamento seguro de dados médicos com QR Code</p>
         </div>
 
@@ -69,17 +69,172 @@
                         <label class="block text-sm font-medium text-gray-700 mb-2">Data de Nascimento *</label>
                         <input type="date" id="nascimento" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
                     </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Sexo biológico *</label>
+                        <select id="tipoPaciente" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                            <option value="">Selecione...</option>
+                            <option value="idoso">Masculino</option>
+                            <option value="deficiencia">Feminino</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Estado Civil *</label>
+                        <select id="tipoPaciente" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                            <option value="">Selecione...</option>
+                            <option value="idoso">Solteiro</option>
+                            <option value="deficiencia">Casado</option>
+                            <option value="cronica">União Estável</option>
+                            <option value="rara">Separado</option>
+                            <option value="outros">Divorciado</option>
+                            <option value="outros">Viúvo</option>
+                            <option value="outros">Prefiro não informar</option>
+                        </select>
+                    </div>
                     
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Naturalidade *</label>
+                        
+                            <select id="estado" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" onchange="carregarCidades()">
+                            <option value="">-- Selecione um Estado --</option>
+                          </select>
+
+                          <br><br>
+                            
+                            <select id="cidade" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" disabled>
+                                <option value="">-- Selecione uma Cidade --</option>
+                         </select>
+
+                        <script>
+                            const estadoSelect = document.getElementById("estado");
+                            const cidadeSelect = document.getElementById("cidade");
+
+                        // Carrega todos os estados ao abrir a página
+                        fetch("https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome")
+                          .then(res => res.json())
+                          .then(estados => {
+                        estados.forEach(estado => {
+                          const option = document.createElement("option");
+                          option.value = estado.sigla;
+                          option.text = `${estado.nome} (${estado.sigla})`;
+                          estadoSelect.add(option);
+        });
+      });
+
+                       // Carrega cidades do estado selecionado
+                       function carregarCidades() {
+                          const uf = estadoSelect.value;
+                          cidadeSelect.innerHTML = "<option value=''>-- Selecione uma Cidade --</option>";
+                          cidadeSelect.disabled = true;
+
+                      if (!uf) return;
+
+                      fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios`)
+                        .then(res => res.json())
+                        .then(cidades => {
+                      cidades.forEach(cidade => {
+                        const option = document.createElement("option");
+                        option.value = cidade.nome;
+                        option.text = cidade.nome;
+                        cidadeSelect.add(option);
+                          });
+                      cidadeSelect.disabled = false;
+                      });
+    }
+  </script>
+                    </div>
+                <div>
+  <h2>Endereço</h2>
+
+  <label for="cep" "block text-sm font-medium text-gray-700 mb-2">CEP</label>
+  <input type="text" id="cep" maxlength="9" onblur="buscarEndereco()" placeholder="00000-000">
+
+  <label for="logradouro">Rua</label>
+  <input type="text" id="logradouro" readonly>
+
+  <label for="numero">Número</label>
+  <input type="text" id="numero" placeholder="Ex: 123">
+
+  <label for="complemento">Complemento</label>
+  <input type="text" id="complemento" placeholder="Ex: Apt 201, Bloco B">
+
+  <label for="bairro">Bairro</label>
+  <input type="text" id="bairro" readonly>
+
+  <label for="cidade">Cidade</label>
+  <input type="text" id="localidade" readonly>
+
+  <label for="uf">Estado</label>
+  <input type="text" id="uf" readonly>
+
+  <label for="referencia">Ponto de Referência</label>
+  <input type="text" id="referencia" placeholder="Ex: Próximo ao supermercado X">
+
+  <script>
+    function buscarEndereco() {
+      const cep = document.getElementById("cep").value.replace(/\D/g, '');
+
+      if (cep.length !== 8) {
+        alert("CEP inválido");
+        return;
+      }
+
+      fetch(`https://viacep.com.br/ws/${cep}/json/`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.erro) {
+            alert("CEP não encontrado.");
+            return;
+          }
+
+          document.getElementById("logradouro").value = data.logradouro || "";
+          document.getElementById("bairro").value = data.bairro || "";
+          document.getElementById("localidade").value = data.localidade || "";
+          document.getElementById("uf").value = data.uf || "";
+        })
+        .catch(() => alert("Erro ao buscar o endereço."));
+    }
+  </script>
+ <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Profissão</label>
+                        <input type="text" id="nome" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                    </div>
+ </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Opção sexual *</label>
+                        <select id="tipoPaciente" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                            <option value="">Selecione...</option>
+                            <option value="idoso">Héterosexual</option>
+                            <option value="deficiencia">Homosexual</option>
+                            <option value="cronica">Transexual</option>
+                            <option value="rara">Bissexal</option>
+                            <option value="outros">Assexual</option>
+                            <option value="outros">Pansexual</option>
+                            <option value="outros">Prefiro não informar</option>
+                        </select>
+                    </div>
+
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">CPF *</label>
                         <input type="text" id="cpf" required placeholder="000.000.000-00" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
                     </div>
                     
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Telefone de Emergência *</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Contato *</label>
                         <input type="tel" id="telefone" required placeholder="(11) 99999-9999" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
                     </div>
                     
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Contato para emergências *</label>
+                        <input type="text" id="nome" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Telefone de Emergência *</label>
+                        <input type="tel" id="telefone" required placeholder="(11) 99999-9999" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                    </div>
+
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Tipo de Paciente *</label>
                         <select id="tipoPaciente" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
@@ -133,7 +288,7 @@
                     </div>
                     
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Contato de Emergência</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Contato do Médico</label>
                         <input type="text" id="contatoEmergencia" placeholder="Nome e telefone" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
                     </div>
                     
@@ -141,7 +296,11 @@
                         <label class="block text-sm font-medium text-gray-700 mb-2">Observações Especiais</label>
                         <textarea id="observacoes" rows="2" placeholder="Informações importantes para emergências" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"></textarea>
                     </div>
-                    
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Informações com * são obrigatórias</label>
+                    </div>
+
                     <div class="md:col-span-2 mt-6">
                         <button type="submit" class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-4 px-6 rounded-lg font-semibold text-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105">
                             💾 Cadastrar e Gerar QR Code
