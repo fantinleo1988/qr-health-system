@@ -65,11 +65,11 @@
                         <input type="text" id="nome" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
                     </div>
                     
-					<div>
+                    <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">CPF *</label>
                         <input type="text" id="cpf" required placeholder="000.000.000-00" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
                     </div>
-					
+                    
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Data de Nascimento *</label>
                         <input type="date" id="nascimento" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
@@ -77,147 +77,81 @@
 
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Sexo biológico *</label>
-                        <select id="tipoPaciente" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                        <select id="sexo" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
                             <option value="">Selecione...</option>
-                            <option value="idoso">Masculino</option>
-                            <option value="deficiencia">Feminino</option>
+                            <option value="Masculino">Masculino</option>
+                            <option value="Feminino">Feminino</option>
                         </select>
                     </div>
-<div>
+
+                    <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Opção sexual *</label>
-                        <select id="tipoPaciente" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                        <select id="opcaoSexual" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
                             <option value="">Selecione...</option>
-                            <option value="idoso">Héterosexual</option>
-                            <option value="deficiencia">Homosexual</option>
-                            <option value="cronica">Transexual</option>
-                            <option value="rara">Bissexal</option>
-                            <option value="outros">Assexual</option>
-                            <option value="outros">Pansexual</option>
-                            <option value="outros">Prefiro não informar</option>
+                            <option value="Héterosexual">Héterosexual</option>
+                            <option value="Homosexual">Homosexual</option>
+                            <option value="Transexual">Transexual</option>
+                            <option value="Bissexal">Bissexal</option>
+                            <option value="Assexual">Assexual</option>
+                            <option value="Pansexual">Pansexual</option>
+                            <option value="Prefiro não informar">Prefiro não informar</option>
                         </select>
                     </div>
+
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Estado Civil *</label>
-                        <select id="tipoPaciente" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                        <select id="estadoCivil" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
                             <option value="">Selecione...</option>
-                            <option value="idoso">Solteiro</option>
-                            <option value="deficiencia">Casado</option>
-                            <option value="cronica">União Estável</option>
-                            <option value="rara">Separado</option>
-                            <option value="outros">Divorciado</option>
-                            <option value="outros">Viúvo</option>
-                            <option value="outros">Prefiro não informar</option>
+                            <option value="Solteiro">Solteiro</option>
+                            <option value="Casado">Casado</option>
+                            <option value="União Estável">União Estável</option>
+                            <option value="Separado">Separado</option>
+                            <option value="Divorciado">Divorciado</option>
+                            <option value="Viúvo">Viúvo</option>
+                            <option value="Prefiro não informar">Prefiro não informar</option>
                         </select>
                     </div>
                     
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Naturalidade *</label>
-                        
+                        <div>
                             <select id="estado" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" onchange="carregarCidades()">
-                            <option value="">-- Selecione um Estado --</option>
-                          </select>
-
-                          <br><br>
-                            
+                                <option value="">-- Selecione um Estado --</option>
+                            </select>
+                        </div>
+                        <br>
+                        <div> 
                             <select id="cidade" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" disabled>
                                 <option value="">-- Selecione uma Cidade --</option>
-                         </select>
-
-                        <script>
-                            const estadoSelect = document.getElementById("estado");
-                            const cidadeSelect = document.getElementById("cidade");
-
-                        // Carrega todos os estados ao abrir a página
-                        fetch("https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome")
-                          .then(res => res.json())
-                          .then(estados => {
-                        estados.forEach(estado => {
-                          const option = document.createElement("option");
-                          option.value = estado.sigla;
-                          option.text = `${estado.nome} (${estado.sigla})`;
-                          estadoSelect.add(option);
-        });
-      });
-
-                       // Carrega cidades do estado selecionado
-                       function carregarCidades() {
-                          const uf = estadoSelect.value;
-                          cidadeSelect.innerHTML = "<option value=''>-- Selecione uma Cidade --</option>";
-                          cidadeSelect.disabled = true;
-
-                      if (!uf) return;
-
-                      fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios`)
-                        .then(res => res.json())
-                        .then(cidades => {
-                      cidades.forEach(cidade => {
-                        const option = document.createElement("option");
-                        option.value = cidade.nome;
-                        option.text = cidade.nome;
-                        cidadeSelect.add(option);
-                          });
-                      cidadeSelect.disabled = false;
-                      });
-    }
-  </script>
+                            </select>
+                        </div>
                     </div>
 
- <div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">CEP</label>
+                        <input type="text" id="cep" maxlength="9" onblur="buscarEndereco()" placeholder="00000-000" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" />
 
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
- 
-  <label class="block text-sm font-medium text-gray-700">Endereço</label><br>
-               
-  <label class="block text-sm font-medium text-gray-700 mb-2">CEP</label>
-  <input type="text" id="cep" maxlength="9" onblur="buscarEndereco()" placeholder="00000-000" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" />
+                        <label class="block text-sm font-medium text-gray-700 mb-2 mt-4">Rua</label>
+                        <input type="text" id="logradouro" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" />
 
-  <label class="block text-sm font-medium text-gray-700 mb-2">Rua</label>
-  <input type="text" id="logradouro" readonly class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" />
+                        <label class="block text-sm font-medium text-gray-700 mb-2 mt-4">Número</label>
+                        <input type="text" id="numero" placeholder="Ex: 123" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" />
 
-  <label class="block text-sm font-medium text-gray-700 mb-2">Número</label>
-  <input type="text" name="numero" placeholder="Ex: 123" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" />
+                        <label class="block text-sm font-medium text-gray-700 mb-2 mt-4">Complemento</label>
+                        <input type="text" id="complemento" placeholder="Ex: Apt 201, Bloco B" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" />
 
-  <label class="block text-sm font-medium text-gray-700 mb-2">Complemento</label>
-  <input type="text" id="complemento" placeholder="Ex: Apt 201, Bloco B" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" />
+                        <label class="block text-sm font-medium text-gray-700 mb-2 mt-4">Bairro</label>
+                        <input type="text" id="bairro" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" />
 
-  <label class="block text-sm font-medium text-gray-700 mb-2">Bairro</label>
-  <input type="text" id="bairro" readonly class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" />
+                        <label class="block text-sm font-medium text-gray-700 mb-2 mt-4">Cidade</label>
+                        <input type="text" id="localidade" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" />
 
-  <label class="block text-sm font-medium text-gray-700 mb-2">Cidade</label>
-  <input type="text" id="localidade" readonly class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" />
+                        <label class="block text-sm font-medium text-gray-700 mb-2 mt-4">Estado</label>
+                        <input type="text" id="uf" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" />
 
-  <label class="block text-sm font-medium text-gray-700 mb-2">Estado</label>
-  <input type="text" id="uf" readonly class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" />
-
-  <label class="block text-sm font-medium text-gray-700 mb-2">Ponto de Referência</label>
-  <input type="text" id="referencia" placeholder="Ex: Próximo ao supermercado X" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" />
-  
-</div>
-  <script>
-    function buscarEndereco() {
-      const cep = document.getElementById("cep").value.replace(/\D/g, '');
-
-      if (cep.length !== 8) {
-        alert("CEP inválido");
-        return;
-      }
-
-      fetch(`https://viacep.com.br/ws/${cep}/json/`)
-        .then(response => response.json())
-        .then(data => {
-          if (data.erro) {
-            alert("CEP não encontrado.");
-            return;
-          }
-
-          document.getElementById("logradouro").value = data.logradouro || "";
-          document.getElementById("bairro").value = data.bairro || "";
-          document.getElementById("localidade").value = data.localidade || "";
-          document.getElementById("uf").value = data.uf || "";
-        })
-        .catch(() => alert("Erro ao buscar o endereço."));
-    }
-  </script>
+                        <label class="block text-sm font-medium text-gray-700 mb-2 mt-4">Ponto de Referência</label>
+                        <input type="text" id="referencia" placeholder="Ex: Próximo ao supermercado X" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" />
+                    </div>
                     
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Contato *</label>
@@ -226,12 +160,12 @@
                     
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Contato para emergências *</label>
-                        <input type="text" id="nome" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                        <input type="text" id="contatoEmergenciaNome" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
                     </div>
                     
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Telefone de Emergência *</label>
-                        <input type="tel" id="telefone" required placeholder="(11) 99999-9999" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                        <input type="tel" id="telefoneEmergencia" required placeholder="(11) 99999-9999" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
                     </div>
 
                     <div>
@@ -265,53 +199,33 @@
                     <div class="md:col-span-2 mt-6">
                         <h3 class="text-lg font-semibold text-gray-700 mb-4 border-b pb-2">🏥 Informações Médicas</h3>
                     </div>
+
+                    <div class="md:col-span-2">
                         <label class="block text-sm font-medium text-gray-700 mb-2">Medicamentos em uso</label>
-                           <ul id="lista-itens">
-                              
-  </ul>
+                        <ul id="listaMedicamentos" class="mb-4 space-y-2">
+                            <!-- Lista de medicamentos será preenchida aqui -->
+                        </ul>
 
- <ul id="lista-itens">
- 
-  </ul>
-
-  <h3>Adicionar nova medicação</h3>
-  <input type="text" id="item-nome" placeholder="Nome a medicação" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"/>
-  <input type="number" id="item-quantidade" placeholder="Unidades ou ml" min="1" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"/>
-  <input type="number" id="item-peso" placeholder="mg por unidade" min="0,1" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"/>
-  <button onclick="adicionarItem()" class="w-full px-4 py-3 border border-gray-300 bg-gray-300 text-black rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">Adicionar</button>
-
-  <script>
-    function adicionarItem() {
-      const nome = document.getElementById('item-nome').value.trim();
-      const quantidade = document.getElementById('item-quantidade').value.trim();
-      const peso = document.getElementById('item-peso').value.trim();
-
-      if (nome && quantidade && peso) {
-        const lista = document.getElementById('lista-itens');
-        const novoItem = document.createElement('li');
-
-        const totalPeso = Number(quantidade) * Number(peso);
-        novoItem.textContent = `${nome} - ${quantidade} ${quantidade == 1 ? 'unidade' : 'unidades/ml'} - ${totalPeso} mg`;
-        lista.appendChild(novoItem);
-
-        // Limpar os campos após adicionar
-        document.getElementById('item-nome').value = '';
-        document.getElementById('item-quantidade').value = '';
-        document.getElementById('item-peso').value = '';
-      } else {
-        alert('Por favor, preencha todos os campos: nome, quantidade e peso.');
-      }
-    }
-  </script>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Nome do Medicamento</label>
+                                <input type="text" id="medicamentoNome" placeholder="Ex: Paracetamol" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Dosagem (mg)</label>
+                                <input type="number" id="medicamentoDosagem" placeholder="Ex: 500" min="0" step="0.1" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Frequência</label>
+                                <input type="text" id="medicamentoFrequencia" placeholder="Ex: 1x/dia" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+                            </div>
+                        </div>
+                        <button type="button" onclick="adicionarMedicamento()" class="mt-2 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">+ Adicionar Medicamento</button>
+                    </div>
 
                     <div class="md:col-span-2">
                         <label class="block text-sm font-medium text-gray-700 mb-2">Histórico familiar (Doenças prevalentes na família, incluindo pais, irmãos e filhos)</label>
                         <textarea id="condicoes" rows="3" placeholder="Diabetes, Hipertensão, Alzheimer, Câncer, etc." class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"></textarea>
-                    </div>
-                    
-                    <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Medicamentos em Uso</label>
-                        <textarea id="medicamentos" rows="3" placeholder="Lista de medicamentos e dosagens" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"></textarea>
                     </div>
                     
                     <div class="md:col-span-2">
@@ -326,7 +240,7 @@
                     
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Contato do Médico</label>
-                        <input type="text" id="contatoEmergencia" placeholder="Nome e telefone" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                        <input type="text" id="contatoMedico" placeholder="Telefone do médico" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
                     </div>
                     
                     <div class="md:col-span-2">
@@ -334,8 +248,8 @@
                         <textarea id="observacoes" rows="2" placeholder="Informações importantes para emergências" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"></textarea>
                     </div>
 
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Informações com * são obrigatórias</label>
+                    <div class="md:col-span-2 text-sm text-gray-500">
+                        <p>Informações com * são obrigatórias</p>
                     </div>
 
                     <div class="md:col-span-2 mt-6">
@@ -371,6 +285,7 @@
                         <option value="outros">📋 Outros</option>
                     </select>
                     <input type="text" id="buscaNome" placeholder="Buscar por nome..." class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                    <input type="text" id="buscaCPF" placeholder="Buscar por CPF..." class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                 </div>
                 
                 <div id="listaPacientes" class="space-y-4">
@@ -444,7 +359,8 @@
                     medicamentos: "Metformina 850mg 2x/dia, Losartana 50mg 1x/dia, Paracetamol conforme necessário",
                     alergias: "Penicilina, Dipirona",
                     medico: "Dr. João Cardiologista - CRM 12345-SP",
-                    contatoEmergencia: "Filho: Pedro Santos (11) 98888-2222",
+                    contatoEmergenciaNome: "Pedro Santos",
+                    telefoneEmergencia: "(11) 98888-2222",
                     observacoes: "Paciente com mobilidade reduzida, usa bengala"
                 },
                 {
@@ -459,7 +375,8 @@
                     medicamentos: "Antibiótico profilático, Vitamina D",
                     alergias: "Nenhuma conhecida",
                     medico: "Dra. Ana Neurologista - CRM 54321-SP",
-                    contatoEmergencia: "Esposa: Lucia Lima (11) 96666-4444",
+                    contatoEmergenciaNome: "Lucia Lima",
+                    telefoneEmergencia: "(11) 96666-4444",
                     observacoes: "Cadeirante, necessita acessibilidade"
                 },
                 {
@@ -474,13 +391,123 @@
                     medicamentos: "Analgésicos, Fisioterapia regular",
                     alergias: "Látex, Aspirina",
                     medico: "Dr. Roberto Geneticista - CRM 98765-SP",
-                    contatoEmergencia: "Mãe: Rosa Oliveira (11) 94444-6666",
+                    contatoEmergenciaNome: "Rosa Oliveira",
+                    telefoneEmergencia: "(11) 94444-6666",
                     observacoes: "Pele muito frágil, evitar procedimentos invasivos"
                 }
             ];
             
             pacientes = exemplosPacientes;
             localStorage.setItem('pacientesMedicos', JSON.stringify(pacientes));
+        }
+
+        // Carrega todos os estados ao abrir a página
+        function carregarEstados() {
+            fetch("https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome")
+                .then(res => res.json())
+                .then(estados => {
+                    const estadoSelect = document.getElementById("estado");
+                    estados.forEach(estado => {
+                        const option = document.createElement("option");
+                        option.value = estado.sigla;
+                        option.text = `${estado.nome} (${estado.sigla})`;
+                        estadoSelect.add(option);
+                    });
+                });
+        }
+
+        // Carrega cidades do estado selecionado
+        function carregarCidades() {
+            const uf = document.getElementById("estado").value;
+            const cidadeSelect = document.getElementById("cidade");
+            cidadeSelect.innerHTML = "<option value=''>-- Selecione uma Cidade --</option>";
+            cidadeSelect.disabled = true;
+
+            if (!uf) return;
+
+            fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios`)
+                .then(res => res.json())
+                .then(cidades => {
+                    cidades.forEach(cidade => {
+                        const option = document.createElement("option");
+                        option.value = cidade.nome;
+                        option.text = cidade.nome;
+                        cidadeSelect.add(option);
+                    });
+                    cidadeSelect.disabled = false;
+                });
+        }
+
+        // Busca endereço pelo CEP
+        function buscarEndereco() {
+            const cep = document.getElementById("cep").value.replace(/\D/g, '');
+
+            if (cep.length !== 8) {
+                alert("CEP inválido");
+                return;
+            }
+
+            fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.erro) {
+                        alert("CEP não encontrado.");
+                        return;
+                    }
+
+                    document.getElementById("logradouro").value = data.logradouro || "";
+                    document.getElementById("bairro").value = data.bairro || "";
+                    document.getElementById("localidade").value = data.localidade || "";
+                    document.getElementById("uf").value = data.uf || "";
+                    document.getElementById("complemento").focus();
+                })
+                .catch(() => alert("Erro ao buscar o endereço."));
+        }
+
+        // Adiciona medicamento à lista
+        function adicionarMedicamento() {
+            const nome = document.getElementById('medicamentoNome').value.trim();
+            const dosagem = document.getElementById('medicamentoDosagem').value.trim();
+            const frequencia = document.getElementById('medicamentoFrequencia').value.trim();
+
+            if (nome && dosagem && frequencia) {
+                const lista = document.getElementById('listaMedicamentos');
+                const novoItem = document.createElement('li');
+                novoItem.className = 'flex justify-between items-center bg-gray-50 p-2 rounded';
+                
+                novoItem.innerHTML = `
+                    <span>${nome} - ${dosagem}mg - ${frequencia}</span>
+                    <button onclick="this.parentElement.remove()" class="text-red-500 hover:text-red-700">
+                        ✖
+                    </button>
+                `;
+                
+                lista.appendChild(novoItem);
+
+                // Limpar os campos após adicionar
+                document.getElementById('medicamentoNome').value = '';
+                document.getElementById('medicamentoDosagem').value = '';
+                document.getElementById('medicamentoFrequencia').value = '';
+            } else {
+                alert('Por favor, preencha todos os campos do medicamento.');
+            }
+        }
+
+        // Formata CPF
+        function formatarCPF(cpf) {
+            cpf = cpf.replace(/\D/g, '');
+            cpf = cpf.replace(/(\d{3})(\d)/, '$1.$2');
+            cpf = cpf.replace(/(\d{3})(\d)/, '$1.$2');
+            cpf = cpf.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+            return cpf;
+        }
+
+        // Formata telefone
+        function formatarTelefone(telefone) {
+            telefone = telefone.replace(/\D/g, '');
+            telefone = telefone.replace(/(\d{2})(\d)/, '($1) $2');
+            telefone = telefone.replace(/(\d{5})(\d)/, '$1-$2');
+            return telefone;
         }
 
         // Navegação entre seções
@@ -509,38 +536,135 @@
 
         // Formatação de CPF
         document.getElementById('cpf').addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\D/g, '');
-            value = value.replace(/(\d{3})(\d)/, '$1.$2');
-            value = value.replace(/(\d{3})(\d)/, '$1.$2');
-            value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
-            e.target.value = value;
+            e.target.value = formatarCPF(e.target.value);
         });
 
         // Formatação de telefone
         document.getElementById('telefone').addEventListener('input', function(e) {
+            e.target.value = formatarTelefone(e.target.value);
+        });
+
+        // Formatação de telefone de emergência
+        document.getElementById('telefoneEmergencia').addEventListener('input', function(e) {
+            e.target.value = formatarTelefone(e.target.value);
+        });
+
+        // Formatação de CEP
+        document.getElementById('cep').addEventListener('input', function(e) {
             let value = e.target.value.replace(/\D/g, '');
-            value = value.replace(/(\d{2})(\d)/, '($1) $2');
-            value = value.replace(/(\d{5})(\d)/, '$1-$2');
+            if (value.length > 5) {
+                value = value.replace(/(\d{5})(\d)/, '$1-$2');
+            }
             e.target.value = value;
         });
+
+        // Função corrigida para gerar QR Code
+        function gerarQRCode(paciente) {
+            // Verificar se o paciente é um objeto válido
+            if (typeof paciente !== 'object') {
+                try {
+                    paciente = JSON.parse(paciente);
+                } catch (e) {
+                    console.error('Dados do paciente inválidos:', paciente);
+                    alert('Erro: Dados do paciente inválidos');
+                    return;
+                }
+            }
+            
+            // Criar objeto simplificado para o QR Code
+            const qrData = {
+                nome: paciente.nome || 'Não informado',
+                tipoSanguineo: paciente.tipoSanguineo || 'Não informado',
+                alergias: paciente.alergias || 'Nenhuma alergia conhecida',
+                medicamentos: paciente.medicamentos || 'Nenhum medicamento registrado',
+                contatoEmergencia: paciente.contatoEmergenciaNome && paciente.telefoneEmergencia 
+                    ? `${paciente.contatoEmergenciaNome} - ${paciente.telefoneEmergencia}`
+                    : 'Não informado',
+                medico: paciente.medico || 'Não informado'
+            };
+            
+            currentQRData = JSON.stringify(qrData);
+            
+            const container = document.getElementById('qrCodeContainer');
+            container.innerHTML = '';
+            
+            // Gerar QR Code com tratamento de erros
+            QRCode.toCanvas(container, currentQRData, {
+                width: 256,
+                margin: 2,
+                color: {
+                    dark: '#1f2937',
+                    light: '#ffffff'
+                }
+            }, function (error) {
+                if (error) {
+                    console.error('Erro ao gerar QR Code:', error);
+                    alert('Erro ao gerar QR Code. Verifique o console para detalhes.');
+                    return;
+                }
+                document.getElementById('qrModal').classList.remove('hidden');
+                document.getElementById('qrModal').classList.add('flex');
+            });
+        }
+
+        // Função para download do QR Code
+        function downloadQR() {
+            const canvas = document.querySelector('#qrCodeContainer canvas');
+            if (!canvas) {
+                alert('QR Code não foi gerado corretamente. Tente novamente.');
+                return;
+            }
+            
+            const link = document.createElement('a');
+            link.download = `qr-code-paciente-${new Date().toISOString().slice(0,10)}.png`;
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+
+        // Fechar modal
+        function closeModal() {
+            document.getElementById('qrModal').classList.add('hidden');
+            document.getElementById('qrModal').classList.remove('flex');
+        }
 
         // Cadastro de paciente
         document.getElementById('patientForm').addEventListener('submit', function(e) {
             e.preventDefault();
+            
+            // Coletar medicamentos
+            const medicamentosItens = Array.from(document.getElementById('listaMedicamentos').children).map(item => {
+                return item.firstChild.textContent.trim();
+            }).join(', ');
             
             const paciente = {
                 id: Date.now(),
                 nome: document.getElementById('nome').value,
                 nascimento: document.getElementById('nascimento').value,
                 cpf: document.getElementById('cpf').value,
+                sexo: document.getElementById('sexo').value,
+                opcaoSexual: document.getElementById('opcaoSexual').value,
+                estadoCivil: document.getElementById('estadoCivil').value,
+                naturalidade: `${document.getElementById('cidade').value}/${document.getElementById('estado').value}`,
+                endereco: {
+                    cep: document.getElementById('cep').value,
+                    logradouro: document.getElementById('logradouro').value,
+                    numero: document.getElementById('numero').value,
+                    complemento: document.getElementById('complemento').value,
+                    bairro: document.getElementById('bairro').value,
+                    cidade: document.getElementById('localidade').value,
+                    estado: document.getElementById('uf').value,
+                    referencia: document.getElementById('referencia').value
+                },
                 telefone: document.getElementById('telefone').value,
+                contatoEmergenciaNome: document.getElementById('contatoEmergenciaNome').value,
+                telefoneEmergencia: document.getElementById('telefoneEmergencia').value,
                 tipoPaciente: document.getElementById('tipoPaciente').value,
                 tipoSanguineo: document.getElementById('tipoSanguineo').value,
                 condicoes: document.getElementById('condicoes').value,
-                medicamentos: document.getElementById('medicamentos').value,
+                medicamentos: medicamentosItens,
                 alergias: document.getElementById('alergias').value,
                 medico: document.getElementById('medico').value,
-                contatoEmergencia: document.getElementById('contatoEmergencia').value,
+                contatoMedico: document.getElementById('contatoMedico').value,
                 observacoes: document.getElementById('observacoes').value,
                 dataCadastro: new Date().toISOString()
             };
@@ -553,71 +677,23 @@
             
             // Limpar formulário
             document.getElementById('patientForm').reset();
-            
-            // Mostrar mensagem de sucesso
-            alert('✅ Paciente cadastrado com sucesso! QR Code gerado.');
+            document.getElementById('listaMedicamentos').innerHTML = '';
+            document.getElementById('cidade').innerHTML = '<option value="">-- Selecione uma Cidade --</option>';
+            document.getElementById('cidade').disabled = true;
         });
-
-        // Gerar QR Code
-        function gerarQRCode(paciente) {
-            const qrData = JSON.stringify({
-                nome: paciente.nome,
-                nascimento: paciente.nascimento,
-                tipoPaciente: paciente.tipoPaciente,
-                tipoSanguineo: paciente.tipoSanguineo,
-                condicoes: paciente.condicoes,
-                medicamentos: paciente.medicamentos,
-                alergias: paciente.alergias,
-                medico: paciente.medico,
-                contatoEmergencia: paciente.contatoEmergencia,
-                telefone: paciente.telefone,
-                observacoes: paciente.observacoes
-            });
-            
-            currentQRData = qrData;
-            
-            const container = document.getElementById('qrCodeContainer');
-            container.innerHTML = '';
-            
-            QRCode.toCanvas(container, qrData, {
-                width: 256,
-                margin: 2,
-                color: {
-                    dark: '#1f2937',
-                    light: '#ffffff'
-                }
-            }, function (error) {
-                if (error) console.error(error);
-                document.getElementById('qrModal').classList.remove('hidden');
-                document.getElementById('qrModal').classList.add('flex');
-            });
-        }
-
-        // Download QR Code
-        function downloadQR() {
-            const canvas = document.querySelector('#qrCodeContainer canvas');
-            const link = document.createElement('a');
-            link.download = 'qr-code-medico.png';
-            link.href = canvas.toDataURL();
-            link.click();
-        }
-
-        // Fechar modal
-        function closeModal() {
-            document.getElementById('qrModal').classList.add('hidden');
-            document.getElementById('qrModal').classList.remove('flex');
-        }
 
         // Atualizar lista de pacientes
         function atualizarLista() {
             const lista = document.getElementById('listaPacientes');
             const filtroTipo = document.getElementById('filtroTipo').value;
             const buscaNome = document.getElementById('buscaNome').value.toLowerCase();
+            const buscaCPF = document.getElementById('buscaCPF').value.replace(/\D/g, '');
             
             let pacientesFiltrados = pacientes.filter(p => {
                 const matchTipo = !filtroTipo || p.tipoPaciente === filtroTipo;
                 const matchNome = !buscaNome || p.nome.toLowerCase().includes(buscaNome);
-                return matchTipo && matchNome;
+                const matchCPF = !buscaCPF || p.cpf.replace(/\D/g, '').includes(buscaCPF);
+                return matchTipo && matchNome && matchCPF;
             });
             
             document.getElementById('totalPacientes').textContent = pacientesFiltrados.length;
@@ -639,22 +715,23 @@
                             <div>
                                 <h3 class="text-lg font-semibold text-gray-800">${paciente.nome}</h3>
                                 <p class="text-gray-600">${tipoIcons[paciente.tipoPaciente]} ${paciente.tipoPaciente.charAt(0).toUpperCase() + paciente.tipoPaciente.slice(1)} • ${idade} anos • ${paciente.tipoSanguineo}</p>
+                                <p class="text-sm text-gray-500 mt-1">CPF: ${paciente.cpf}</p>
                             </div>
                             <div class="flex space-x-2">
                                 <button onclick="visualizarPaciente(${paciente.id})" class="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
-                                    👁️ Ver
+                                    👁️ Visualizar
                                 </button>
-                                <button onclick="gerarQRCode(${JSON.stringify(paciente).replace(/"/g, '&quot;')})" class="bg-green-600 text-white px-3 py-1 rounded text-sm hover:bg-green-700 transition-colors">
-                                    📱 QR
+                                <button onclick="gerarQRCode(${JSON.stringify(paciente)})" class="bg-green-600 text-white px-3 py-1 rounded text-sm hover:bg-green-700 transition-colors">
+                                    📱 Gerar QR Code
                                 </button>
                                 <button onclick="excluirPaciente(${paciente.id})" class="bg-red-600 text-white px-3 py-1 rounded text-sm hover:bg-red-700 transition-colors">
-                                    🗑️
+                                    🗑️ Excluir paciente
                                 </button>
                             </div>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                             <div>
-                                <strong>Condições:</strong> ${paciente.condicoes || 'Nenhuma registrada'}
+                                <strong>Condições:</strong> ${paciente.condicoes ? paciente.condicoes.substring(0, 50) + (paciente.condicoes.length > 50 ? '...' : '') : 'Nenhuma registrada'}
                             </div>
                             <div>
                                 <strong>Contato:</strong> ${paciente.telefone}
@@ -680,25 +757,79 @@
             
             const idade = new Date().getFullYear() - new Date(paciente.nascimento).getFullYear();
             
-            alert(`
-📋 DADOS DO PACIENTE
-
-👤 Nome: ${paciente.nome}
-🎂 Idade: ${idade} anos
-🩸 Tipo Sanguíneo: ${paciente.tipoSanguineo}
-📱 Telefone: ${paciente.telefone}
-👥 Tipo: ${tipoIcons[paciente.tipoPaciente]}
-
-🏥 INFORMAÇÕES MÉDICAS:
-• Condições: ${paciente.condicoes || 'Nenhuma'}
-• Medicamentos: ${paciente.medicamentos || 'Nenhum'}
-• Alergias: ${paciente.alergias || 'Nenhuma'}
-• Médico: ${paciente.medico || 'Não informado'}
-
-🚨 EMERGÊNCIA:
-• Contato: ${paciente.contatoEmergencia || 'Não informado'}
-• Observações: ${paciente.observacoes || 'Nenhuma'}
-            `);
+            // Criar um modal para exibir os detalhes
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+            modal.innerHTML = `
+                <div class="bg-white rounded-xl p-8 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold text-gray-800">Detalhes do Paciente</h3>
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()" class="text-gray-500 hover:text-gray-700">
+                            ✖
+                        </button>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-2 border-b pb-1">👤 Dados Pessoais</h4>
+                            <p><strong>Nome:</strong> ${paciente.nome}</p>
+                            <p><strong>Data Nascimento:</strong> ${new Date(paciente.nascimento).toLocaleDateString('pt-BR')} (${idade} anos)</p>
+                            <p><strong>CPF:</strong> ${paciente.cpf}</p>
+                            <p><strong>Sexo:</strong> ${paciente.sexo || 'Não informado'}</p>
+                            <p><strong>Opção Sexual:</strong> ${paciente.opcaoSexual || 'Não informado'}</p>
+                            <p><strong>Estado Civil:</strong> ${paciente.estadoCivil || 'Não informado'}</p>
+                            <p><strong>Naturalidade:</strong> ${paciente.naturalidade || 'Não informado'}</p>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-2 border-b pb-1">🏠 Endereço</h4>
+                            <p><strong>CEP:</strong> ${paciente.endereco?.cep || 'Não informado'}</p>
+                            <p><strong>Logradouro:</strong> ${paciente.endereco?.logradouro || 'Não informado'} ${paciente.endereco?.numero || ''}</p>
+                            <p><strong>Complemento:</strong> ${paciente.endereco?.complemento || 'Não informado'}</p>
+                            <p><strong>Bairro:</strong> ${paciente.endereco?.bairro || 'Não informado'}</p>
+                            <p><strong>Cidade/UF:</strong> ${paciente.endereco?.cidade || 'Não informado'}/${paciente.endereco?.estado || 'Não informado'}</p>
+                            <p><strong>Referência:</strong> ${paciente.endereco?.referencia || 'Não informado'}</p>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-2 border-b pb-1">📞 Contatos</h4>
+                            <p><strong>Telefone:</strong> ${paciente.telefone}</p>
+                            <p><strong>Contato Emergência:</strong> ${paciente.contatoEmergenciaNome || 'Não informado'} - ${paciente.telefoneEmergencia || 'Não informado'}</p>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-2 border-b pb-1">🏥 Informações Médicas</h4>
+                            <p><strong>Tipo:</strong> ${tipoIcons[paciente.tipoPaciente] || 'Não informado'}</p>
+                            <p><strong>Tipo Sanguíneo:</strong> ${paciente.tipoSanguineo || 'Não informado'}</p>
+                            <p><strong>Médico Responsável:</strong> ${paciente.medico || 'Não informado'}</p>
+                            <p><strong>Contato Médico:</strong> ${paciente.contatoMedico || 'Não informado'}</p>
+                        </div>
+                        
+                        <div class="md:col-span-2">
+                            <h4 class="font-semibold text-gray-800 mb-2 border-b pb-1">⚠️ Alergias</h4>
+                            <p>${paciente.alergias || 'Nenhuma alergia registrada'}</p>
+                        </div>
+                        
+                        <div class="md:col-span-2">
+                            <h4 class="font-semibold text-gray-800 mb-2 border-b pb-1">💊 Medicamentos</h4>
+                            <p>${paciente.medicamentos || 'Nenhum medicamento registrado'}</p>
+                        </div>
+                        
+                        <div class="md:col-span-2">
+                            <h4 class="font-semibold text-gray-800 mb-2 border-b pb-1">🧬 Histórico Familiar</h4>
+                            <p>${paciente.condicoes || 'Nenhuma condição registrada'}</p>
+                        </div>
+                        
+                        <div class="md:col-span-2">
+                            <h4 class="font-semibold text-gray-800 mb-2 border-b pb-1">📝 Observações</h4>
+                            <p>${paciente.observacoes || 'Nenhuma observação'}</p>
+                        </div>
+                    </div>
+                    
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
         }
 
         // Excluir paciente
@@ -729,7 +860,7 @@
         // Exibir dados lidos do QR
         function exibirDadosLidos(dados) {
             const container = document.getElementById('dadosLidos');
-            const idade = new Date().getFullYear() - new Date(dados.nascimento).getFullYear();
+            const idade = dados.nascimento ? (new Date().getFullYear() - new Date(dados.nascimento).getFullYear()) : 'Não informada';
             
             container.innerHTML = `
                 <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-lg text-left">
@@ -738,10 +869,10 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <h4 class="font-semibold text-gray-800 mb-2">👤 Dados Pessoais</h4>
-                            <p><strong>Nome:</strong> ${dados.nome}</p>
-                            <p><strong>Idade:</strong> ${idade} anos</p>
-                            <p><strong>Tipo Sanguíneo:</strong> <span class="bg-red-200 px-2 py-1 rounded font-bold">${dados.tipoSanguineo}</span></p>
-                            <p><strong>Telefone:</strong> ${dados.telefone}</p>
+                            <p><strong>Nome:</strong> ${dados.nome || 'Não informado'}</p>
+                            <p><strong>Idade:</strong> ${idade}</p>
+                            <p><strong>Tipo Sanguíneo:</strong> <span class="bg-red-200 px-2 py-1 rounded font-bold">${dados.tipoSanguineo || 'Não informado'}</span></p>
+                            <p><strong>Telefone:</strong> ${dados.telefone || 'Não informado'}</p>
                         </div>
                         
                         <div>
@@ -784,9 +915,13 @@
         // Filtros da lista
         document.getElementById('filtroTipo').addEventListener('change', atualizarLista);
         document.getElementById('buscaNome').addEventListener('input', atualizarLista);
+        document.getElementById('buscaCPF').addEventListener('input', atualizarLista);
 
-        // Inicializar
-        showSection('cadastro');
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            carregarEstados();
+            showSection('cadastro');
+        });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'964d537ae6868125',t:'MTc1MzQ2NDAwNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>
