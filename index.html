@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anamnese QR - Sua Vida em Primeiro Lugar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <style>
+        /* Tipografia e Base */
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            color: #495057;
+            overflow-x: hidden;
+        }
+
+        /* Navbar Glassmorphism */
+        .navbar-glass {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        /* Botões Arredondados e Modernos */
+        .btn-pill {
+            border-radius: 50px;
+            padding: 0.6rem 2rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .btn-pill:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(13, 110, 253, 0.2);
+        }
+
+        /* Hero Section Otimizada */
+        .hero-section {
+            background: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+            padding: 9rem 0 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-bg-circle {
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(13,110,253,0.1) 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        /* Cards de Passos (Como Funciona) */
+        .step-card {
+            border: none;
+            background: transparent;
+            position: relative;
+            height: 100%;
+        }
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: #0d6efd;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 0 0 10px rgba(13, 110, 253, 0.1);
+        }
+
+        /* Cards de "Para Quem É" */
+        .persona-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            height: 100%;
+            border: 1px solid #f0f0f0;
+        }
+        .persona-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+            border-color: #0d6efd;
+        }
+        .persona-icon {
+            font-size: 3rem;
+            color: #0d6efd;
+            margin-bottom: 1rem;
+        }
+
+        /* Depoimentos */
+        .testimonial-card {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            position: relative;
+        }
+        .quote-icon {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 2rem;
+            color: rgba(13, 110, 253, 0.1);
+        }
+
+        /* CTA Final */
+        .cta-section {
+            background: linear-gradient(135deg, #0d6efd 0%, #0043a8 100%);
+            color: white;
+            border-radius: 30px;
+            margin: 4rem auto;
+            padding: 4rem 2rem;
+        }
+
+        /* Rodapé Moderno */
+        .footer-modern { background-color: #212529; font-size: 0.95rem; border-top-left-radius: 50px; border-top-right-radius: 50px; }
+        .footer-link { color: #adb5bd !important; text-decoration: none; transition: all 0.3s ease; }
+        .footer-link:hover { color: #ffffff !important; transform: translateX(5px); }
+        .social-icon-btn { width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; background-color: rgba(255, 255, 255, 0.05); color: #adb5bd; transition: all 0.3s ease; text-decoration: none; margin-left: 10px; }
+        .social-icon-btn:hover { background-color: #0d6efd; color: white; transform: translateY(-3px); }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100 bg-light">
+
+    <nav class="navbar navbar-expand-lg navbar-light navbar-glass fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary d-flex align-items-center" href="index.php">
+                <i class="bi bi-hospital fs-4 me-2"></i> 
+                <span>Anamnese QR</span>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-nav ms-auto align-items-center">
+                    <a class="nav-link text-secondary fw-medium px-3" href="#como-funciona">Como Funciona</a>
+                    <a class="nav-link text-secondary fw-medium px-3" href="ajuda.php">Ajuda</a>
+                    <a class="btn btn-outline-primary btn-pill btn-sm me-2 ms-2" href="login-paciente.php">
+                        Entrar
+                    </a>
+                    <a class="btn btn-primary btn-pill btn-sm" href="cadastro_paciente.php">
+                        Criar Ficha Grátis
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hero-section text-center d-flex align-items-center">
+        <div class="hero-bg-circle"></div>
+        <div class="container position-relative z-1">
+            <div class="row justify-content-center">
+                <div class="col-lg-9">
+                    <div class="badge bg-white text-primary shadow-sm rounded-pill px-3 py-2 mb-4 border animate-bounce">
+                        <i class="bi bi-shield-check-fill me-1"></i> Tecnologia que Salva Vidas
+                    </div>
+                    <h1 class="display-3 fw-bold mb-4 text-dark" style="line-height: 1.2;">
+                        Sua saúde fala por você <br>
+                        <span class="text-primary">quando você não pode.</span>
+                    </h1>
+                    <p class="lead text-secondary mb-5 px-lg-5 mx-auto" style="max-width: 800px;">
+                        Acidentes acontecem. Garanta que médicos e socorristas tenham acesso imediato às suas alergias, tipo sanguíneo e contatos de emergência através de um simples QR Code.
+                    </p>
+                    <div class="d-flex justify-content-center gap-3 flex-wrap">
+                        <a href="cadastro_paciente.php" class="btn btn-primary btn-pill btn-lg shadow-lg">
+                            <i class="bi bi-qr-code me-2"></i> Quero meu QR Code Agora
+                        </a>
+                        <a href="#como-funciona" class="btn btn-white bg-white text-dark border btn-pill btn-lg shadow-sm">
+                            <i class="bi bi-play-circle me-2"></i> Ver como funciona
+                        </a>
+                    </div>
+                    
+                    <div class="mt-5 pt-3 d-flex justify-content-center gap-5 text-secondary small opacity-75">
+                        <div class="d-flex align-items-center"><i class="bi bi-check-circle-fill text-success me-2"></i> 100% Gratuito</div>
+                        <div class="d-flex align-items-center"><i class="bi bi-check-circle-fill text-success me-2"></i> Criptografia Segura</div>
+                        <div class="d-flex align-items-center"><i class="bi bi-check-circle-fill text-success me-2"></i> Conforme LGPD</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="como-funciona" class="container py-5 my-5">
+        <div class="text-center mb-5">
+            <h6 class="text-primary fw-bold text-uppercase">Simples e Rápido</h6>
+            <h2 class="fw-bold display-6">Tenha sua ficha pronta em 3 minutos</h2>
+        </div>
+        <div class="row g-4 text-center">
+            
+            <div class="col-md-6 col-lg-3">
+                <div class="step-card p-4">
+                    <div class="step-number">1</div>
+                    <h4 class="fw-bold">Cadastre-se</h4>
+                    <p class="text-secondary">Crie sua conta segura em nossa plataforma gratuitamente. É rápido e só pedimos o essencial.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-3">
+                <div class="step-card p-4">
+                    <div class="step-number">2</div>
+                    <h4 class="fw-bold">Preencha os Dados</h4>
+                    <p class="text-secondary">Informe alergias, medicamentos, tipo sanguíneo e quem devemos avisar em caso de emergência.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-3">
+                <div class="step-card p-4">
+                    <div class="step-number">3</div>
+                    <h4 class="fw-bold">Imprima o QR Code</h4>
+                    <p class="text-secondary">O sistema gera seu código exclusivo. Imprima ou solicite seu crachá personalizado.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-3">
+                <div class="step-card p-4">
+                    <div class="step-number">4</div>
+                    <h4 class="fw-bold">Leve consigo</h4>
+                    <p class="text-secondary">Deixe o QR Code visível ou acessível na carteira, capacete, celular ou crachá.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="bg-white py-5">
+        <div class="container py-4">
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-6">
+                    <h2 class="fw-bold display-6 mb-3">Essencial para o seu dia a dia</h2>
+                    <p class="lead text-secondary">O Anamnese QR não é apenas para doentes. É uma ferramenta de prevenção para quem vive ativamente e quer tranquilidade.</p>
+                </div>
+                <div class="col-lg-6 text-lg-end">
+                    <a href="cadastro_paciente.php" class="btn btn-outline-primary btn-pill">Começar Cadastro</a>
+                </div>
+            </div>
+
+            <div class="row g-4 row-cols-1 row-cols-md-2 row-cols-lg-4">
+                <div class="col">
+                    <div class="persona-card p-4 text-center">
+                        <i class="bi bi-bicycle persona-icon"></i>
+                        <h5>Ciclistas e Motociclistas</h5>
+                        <p class="small text-secondary mb-0">Em caso de acidente na estrada, o QR Code no capacete fala por você.</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="persona-card p-4 text-center">
+                        <i class="bi bi-heart-pulse persona-icon"></i>
+                        <h5>Idosos e Cardíacos</h5>
+                        <p class="small text-secondary mb-0">Histórico médico e lista de remédios sempre à mão para o socorrista.</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="persona-card p-4 text-center">
+                        <i class="bi bi-exclamation-triangle persona-icon"></i>
+                        <h5>Alérgicos Graves</h5>
+                        <p class="small text-secondary mb-0">Informe imediatamente sobre alergias a medicamentos (ex: Dipirona, Penicilina).</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="persona-card p-4 text-center">
+                        <i class="bi bi-backpack4 persona-icon"></i>
+                        <h5>Crianças e Estudantes</h5>
+                        <p class="small text-secondary mb-0">Segurança extra em passeios escolares e atividades desportivas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container py-5 my-5">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Quem usa, recomenda</h2>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="testimonial-card h-100">
+                    <i class="bi bi-quote quote-icon"></i>
+                    <p class="fst-italic mb-3">"Sou diabético e ando de bicicleta sozinho. Minha esposa ficava preocupada, mas agora com o adesivo no capacete, sabemos que se algo acontecer, o médico saberá da minha condição."</p>
+                    <div class="d-flex align-items-center">
+                        <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold me-3" style="width: 40px; height: 40px;">RC</div>
+                        <div>
+                            <h6 class="fw-bold mb-0">Ricardo C.</h6>
+                            <small class="text-secondary">Ciclista Amador</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="testimonial-card h-100">
+                    <i class="bi bi-quote quote-icon"></i>
+                    <p class="fst-italic mb-3">"Tenho alergia severa a Dipirona. Sempre tive medo de desmaiar e me darem esse remédio. O Anamnese QR me deu uma paz de espírito que eu não tinha."</p>
+                    <div class="d-flex align-items-center">
+                        <div class="bg-warning text-dark rounded-circle d-flex align-items-center justify-content-center fw-bold me-3" style="width: 40px; height: 40px;">ML</div>
+                        <div>
+                            <h6 class="fw-bold mb-0">Mariana L.</h6>
+                            <small class="text-secondary">Usuária Premium</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="cta-section text-center shadow-lg">
+            <h2 class="fw-bold mb-3 display-5">Proteja quem você ama.</h2>
+            <p class="lead mb-4 opacity-75">Não deixe para depois. O cadastro leva menos de 5 minutos e é gratuito.</p>
+            <a href="cadastro_paciente.php" class="btn btn-light btn-pill btn-lg text-primary fw-bold px-5">
+                Criar Minha Ficha Agora
+            </a>
+            <p class="mt-3 small opacity-50"><i class="bi bi-lock-fill"></i> Seus dados estão protegidos pela LGPD</p>
+        </div>
+    </div>
+
+    <footer class="footer-modern text-light pt-5 pb-4 mt-5">
+        <div class="container">
+            <div class="row g-4">
+                
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <a href="#" class="d-flex align-items-center mb-3 text-decoration-none">
+                        <i class="bi bi-hospital fs-3 text-primary me-2"></i>
+                        <span class="fs-4 fw-bold text-light">Anamnese QR</span>
+                    </a>
+                    <p class="text-secondary pe-lg-4" style="line-height: 1.6;">
+                        Facilitando o acesso a informações vitais de saúde através da tecnologia. 
+                        Sua segurança e bem-estar são nossa prioridade número um.
+                    </p>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h6 class="text-uppercase fw-bold text-primary footer-title mb-4">Contato</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-3 d-flex align-items-start">
+                            <i class="bi bi-geo-alt-fill text-primary me-3 mt-1"></i>
+                            <span class="text-secondary">R. José Cosme Pamplona<br>Bela Vista, Palhoça - SC</span>
+                        </li>
+                        <li class="mb-3 d-flex align-items-center">
+                            <i class="bi bi-envelope-fill text-primary me-3"></i>
+                            <span class="text-secondary">suporte@anamneseqr.com.br</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6 class="text-uppercase fw-bold text-primary footer-title mb-4">Suporte</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="ajuda.php" class="footer-link">Central de Ajuda</a></li>
+                        <li class="mb-2"><a href="faq.php" class="footer-link">Perguntas Frequentes</a></li>
+                        <li class="mb-2"><a href="reportar_erro.php" class="footer-link">Reportar um Erro</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4">
+    <h6 class="text-uppercase fw-bold text-primary footer-title mb-4">Privacidade</h6>
+    <ul class="list-unstyled">
+        <li class="mb-2"><a href="politica_privacidade.php" class="footer-link">Política de Privacidade</a></li>
+        <li class="mb-2"><a href="termos_uso.php" class="footer-link">Termos de Uso</a></li>
+    </ul>
+
+    <div class="mt-4">
+        <span class="badge bg-secondary bg-opacity-25 text-light border border-secondary border-opacity-25 px-3 py-2 w-60">
+            <i class="bi bi-shield-lock-fill me-1"></i> Dados Protegidos
+        </span>
+    </div>
+
+    <div class="mt-2">
+        <a href="login.php" class="badge bg-secondary bg-opacity-25 text-light border border-secondary border-opacity-25 px-3 py-2 w-60 text-decoration-none hover-effect">
+            <i class="bi bi-person-badge-fill me-1"></i> Acesso Administrativo
+        </a>
+    </div>
+</div>
+
+            <hr class="footer-divider my-4">
+
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <p class="small text-secondary mb-0">
+                        &copy; <?= date('Y') ?> <strong>Sistema Anamnese QR</strong>. Todos os direitos reservados.
+                    </p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="redes_sociais.php" class="social-icon-btn" title="Facebook"><i class="bi bi-facebook"></i></a>
+                    <a href="redes_sociais.php" class="social-icon-btn" title="Instagram"><i class="bi bi-instagram"></i></a>
+                    <a href="redes_sociais.php" class="social-icon-btn" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
